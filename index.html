@@ -1,0 +1,60 @@
+Bertindaklah sebagai Senior Full-Stack Developer, Ahli UI/UX, dan Spesialis EdTech. 
+
+Saya ingin membangun "Aplikasi Media Ajar Interaktif SMA" berbasis web dengan spesifikasi berikut:
+- Mata Pelajaran: Bahasa Indonesia
+- Kelas: X
+- Materi Pokok: Unsur kebahasaan teks eksposisi
+- Capaian Pembelajaran: Memahami struktur kebahasaan teks eksposisi
+
+**[1. Arsitektur & Teknologi]**
+- **Frontend:** HTML5, CSS3 (gunakan Tailwind CSS via CDN untuk desain premium, modern, dan responsif), dan Vanilla JavaScript.
+- **Backend & Database:** Google Apps Script (GAS) yang terhubung ke Google Spreadsheets.
+- **Pengiriman Data:** Menggunakan Fetch API ke endpoint web app GAS (doGet/doPost).
+
+**[2. Struktur Database (Google Sheets)]**
+Buatkan rancangan nama Sheet dan header kolomnya. Minimal harus ada:
+- Sheet `Users`: Role, Username, Password
+- Sheet `Materi`: ID, Judul, Konten_HTML, Urutan
+- Sheet `Soal`: ID, Pertanyaan, Opsi_A, Opsi_B, Opsi_C, Opsi_D, Kunci_Jawaban
+- Sheet `Hasil_Evaluasi`: Timestamp, Nama_Siswa, NISN, Nilai, Device_ID
+
+**[3. Fitur & Alur Pengguna]**
+**A. Autentikasi (Halaman Login):**
+- Desain login page yang elegan dengan split-screen (sisi kiri ilustrasi edukasi, sisi kanan form login).
+- Kredensial statis untuk purwarupa:
+  - Guru: username "guru", password "guru12345"
+  - Siswa: username "siswa", password "siswa12345"
+
+**B. Dashboard Guru:**
+- Navigasi: Kelola Materi, Kelola Soal, Pantau Hasil.
+- Integrasi Prompt AI: Buatkan tombol/fitur *mockup* "Generate 25 Soal AI". Untuk saat ini, TOLONG HASILKAN 25 SOAL pilihan ganda beserta jawabannya secara langsung dalam format JSON di dalam kodemu yang berfokus pada "unsur kebahasaan teks eksposisi" untuk SMA Kelas X.
+- Tabel pemantauan hasil belajar siswa (menampilkan Nama, NISN, dan Nilai).
+
+**C. Dashboard Siswa:**
+- Tampilan "Learning Path" (Jalur Pembelajaran) interaktif.
+- **Logika Progresi:** Modul materi dibagi menjadi 3 tahap. Materi 2 terkunci sebelum materi 1 selesai dibaca (gunakan localStorage untuk melacak progres siswa di frontend).
+- **Pre-Evaluasi:** Setelah materi selesai, muncul form wajib isi Nama dan NISN sebelum tombol "Mulai Evaluasi" aktif.
+- **Evaluasi Interaktif:** 
+  - Menampilkan 25 soal secara one-by-one (pagination) dengan animasi transisi yang halus.
+  - Tombol "Kirim Jawaban" hanya muncul di soal terakhir.
+- **Keamanan & Anti-Curang:**
+  - *Satu Kali Percobaan:* Catat status kelulusan di `localStorage` dan validasi menggunakan kombinasi Nama+NISN.
+  - *Deteksi Perangkat:* Buat script sederhana untuk generate "Device ID" berbasis `navigator.userAgent` dan `screen.width/height` untuk mencegah pengiriman ganda dari perangkat yang sama.
+  - *Mencegah Double Submit:* Disable tombol kirim setelah diklik dan tampilkan loading spinner.
+  - *Penilaian Otomatis:* Hitung skor (Benar / 25 * 100) dan tampilkan halaman hasil yang estetik.
+
+**[4. Pedoman UI/UX]**
+- Gunakan skema warna modern (misal: Indigo-500, Slate-800, White, dan aksen Emerald).
+- Gunakan efek Glassmorphism pada card, bayangan halus (soft shadows), dan border-radius yang membulat (rounded-2xl).
+- Responsif penuh: Tampilan sidebar di laptop menjadi hamburger menu di HP. Tombol evaluasi harus mudah ditekan di layar HP.
+
+**[5. Output yang Diharapkan dari Anda (Gemini)]**
+Mohon berikan struktur kode berikut:
+1. **Kode Google Apps Script (`Code.gs`)**: Berisi fungsi `doGet()` dan `doPost()` untuk menerima data dari web dan menyimpannya ke Google Sheets, serta fungsi untuk membaca data dari Sheets.
+2. **File `index.html`**: Berisi seluruh kerangka antarmuka pengguna (Login, Guru, Siswa). Gunakan Tailwind CDN.
+3. **File `style.css`**: Tambahan CSS kustom untuk animasi dan scrollbar styling.
+4. **File `app.js`**: Logika frontend (Routing UI tanpa reload, manajemen state materi, evaluasi interaktif, kalkulasi nilai, pengiriman data API, pencegahan double submit).
+5. **Data JSON Soal:** 25 soal evaluasi valid tentang "unsur kebahasaan teks eksposisi" beserta kunci jawabannya yang tertanam di dalam JavaScript/GAS.
+6. **Panduan Implementasi:** Langkah-langkah singkat cara melakukan deploy ke Google Apps Script.
+
+Kerjakan secara bertahap, modular, dan pastikan kode yang diberikan siap pakai (production-ready).
